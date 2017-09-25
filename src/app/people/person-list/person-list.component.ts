@@ -9,19 +9,22 @@ import { Friend, FriendsService } from '../../shared';
 })
 export class PersonListComponent implements OnInit {
 	friends: Friend[] = []
-
+  displayBanner: boolean = false;
       
-  constructor(private friendService: FriendsService) { }
+  constructor(private friendsService: FriendsService) { }
 
   ngOnInit() {
 
-  this.friendService.getFriends()
+  this.friendsService.getFriends()
     .subscribe(friends => this.friends = friends);
   }
   showBanner(friend: Friend) {
-    // this.displayBanner = true;
-    setTimeout(() => {
-      // this.displayBanner = false;
-    }, 3000);
+    this.friendsService.saveFriend(friend)
+      .subscribe(f => {
+        this.displayBanner = true;
+        setTimeout(() => {
+          this.displayBanner = false;
+        }, 3000);
+      });
   };
 }

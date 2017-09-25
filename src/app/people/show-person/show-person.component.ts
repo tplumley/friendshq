@@ -8,7 +8,7 @@ import { Friend, FriendsService } from '../../shared';
 })
 export class ShowPersonComponent implements OnInit {
 	@Input() friend: Friend;
-	@Output() notifyParent:EventEmitter<any> = new EventEmitter();
+	@Output() notifyParent:EventEmitter<Friend> = new EventEmitter();
 
   constructor(private friendService: FriendsService) { }
 
@@ -18,10 +18,10 @@ export class ShowPersonComponent implements OnInit {
 
 	like() {
     this.friend.fav = !this.friend.fav;
-    this.friendService.saveFriend(this.friend)
-    .subscribe(friend => {
-      // this.notifyParent.emit(friend);
-    });
+    // this.friendService.saveFriend(this.friend)
+    // .subscribe(friend => {
+      this.notifyParent.emit(this.friend);
+    // });
   }
 
 }
